@@ -1,0 +1,8 @@
+{
+    "mcpServers": {
+        "tinvest": {
+            "command": "pnpm",
+            "args": ["--filter", "@wildneo/tinvest-mcp", "run", "--silent", "dev"]
+        }
+    }
+}

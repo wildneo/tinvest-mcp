@@ -1,0 +1,26 @@
+## Информация о дивидендах
+
+{{#if dividends}}
+### История дивидендных выплат
+
+| № | Дата выплаты | Дата объявления | Дата записи | Сумма | Доходность (%) | Тип выплаты |
+|---|--------------|-----------------|-------------|-------|----------------|-------------|
+{{#each dividends}}
+| {{@index}} | {{#if paymentDate}}{{paymentDate}}{{else}}-{{/if}} | {{#if declaredDate}}{{declaredDate}}{{else}}-{{/if}} | {{#if recordDate}}{{recordDate}}{{else}}-{{/if}} | {{#if dividendNet}}{{quote dividendNet}}{{else}}-{{/if}} | {{#if yieldValue}}{{quote yieldValue}}{{else}}-{{/if}} | {{#if dividendType}}{{dividendType}}{{else}}-{{/if}} |
+{{/each}}
+
+**Всего выплат:** {{dividends.length}}
+
+{{#if dividends.[0]}}
+### Дополнительная информация
+
+{{#if dividends.[0].closePrice}}
+- **Цена закрытия:** {{quote dividends.[0].closePrice}}
+{{/if}}
+{{#if dividends.[0].regularity}}
+- **Регулярность:** {{dividends.[0].regularity}}
+{{/if}}
+{{/if}}
+{{else}}
+**Дивидендные выплаты за указанный период не найдены.**
+{{/if}}

@@ -1,0 +1,44 @@
+## Прогнозы инвестиционных домов
+
+{{#if consensus}}
+### Консенсус-прогноз
+
+{{#with consensus}}
+- **Инструмент:** {{#if ticker}}{{ticker}}{{/if}} (UID: `{{#if uid}}{{uid}}{{/if}}`)
+- **Текущая цена:** {{#if currentPrice}}{{quote currentPrice}}{{else}}-{{/if}}
+- **Консенсус (средняя цель):** {{#if consensus}}{{quote consensus}}{{else}}-{{/if}}
+- **Диапазон целей:**
+  - Минимум: {{#if minTarget}}{{quote minTarget}}{{else}}-{{/if}}
+  - Максимум: {{#if maxTarget}}{{quote maxTarget}}{{else}}-{{/if}}
+- **Прогнозируемое изменение:** {{#if priceChange}}{{quote priceChange}}{{/if}} ({{#if priceChangeRel}}{{quote priceChangeRel}}%{{/if}})
+- **Рекомендация:** {{#if recommendation}}{{recommendation}}{{else}}-{{/if}}
+{{/with}}
+{{/if}}
+
+{{#if targets}}
+### Прогнозы отдельных инвестиционных домов
+
+| № | Компания | Рекомендация | Целевая цена | Текущая цена | Изменение | Изменение (%) | Дата прогноза |
+|---|----------|--------------|--------------|--------------|-----------|---------------|---------------|
+{{#each targets}}
+| {{@index}} | {{#if company}}{{company}}{{else}}-{{/if}} | {{#if recommendation}}{{recommendation}}{{else}}-{{/if}} | {{#if targetPrice}}{{quote targetPrice}}{{else}}-{{/if}} | {{#if currentPrice}}{{quote currentPrice}}{{else}}-{{/if}} | {{#if priceChange}}{{quote priceChange}}{{else}}-{{/if}} | {{#if priceChangeRel}}{{quote priceChangeRel}}%{{else}}-{{/if}} | {{#if recommendationDate}}{{recommendationDate}}{{else}}-{{/if}} |
+{{/each}}
+
+**Всего прогнозов:** {{targets.length}}
+
+{{#if targets.[0]}}
+### Детали инструмента
+
+{{#if targets.[0].showName}}
+- **Название:** {{targets.[0].showName}}
+{{/if}}
+{{#if targets.[0].ticker}}
+- **Тикер:** {{targets.[0].ticker}}
+{{/if}}
+{{#if targets.[0].uid}}
+- **UID:** `{{targets.[0].uid}}`
+{{/if}}
+{{/if}}
+{{else}}
+**Прогнозы инвестиционных домов не найдены.**
+{{/if}}

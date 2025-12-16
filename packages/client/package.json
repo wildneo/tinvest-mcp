@@ -1,0 +1,36 @@
+{
+    "name": "@wildneo/tinvest-client",
+    "version": "0.0.0",
+    "description": "Generated T-Invest API client",
+    "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "generate": "pnpm clean:src && openapi-ts",
+        "build": "pnpm clean:dist && tsc",
+        "clean:dist": "rm -rf ./dist",
+        "clean:src": "rm -rf ./src",
+        "prepare": "pnpm build"
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        },
+        "./validations": {
+            "types": "./dist/zod.gen.d.ts",
+            "import": "./dist/zod.gen.js"
+        }
+    },
+    "keywords": [
+        "t-invest",
+        "api-client",
+        "openapi"
+    ],
+    "author": "Roman Oskolkov <wild_neo@mail.ru>",
+    "license": "MIT",
+    "peerDependencies": {
+        "axios": "^1.8.0",
+        "zod": "^4.0.0"
+    }
+}

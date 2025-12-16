@@ -1,0 +1,89 @@
+## Информация о фонде (ETF)
+
+### Основные идентификаторы
+
+- **UID:** `{{instrument.uid}}`
+- **Position UID:** `{{instrument.positionUid}}`
+- **FIGI:** `{{instrument.figi}}`
+- **Тикер:** `{{instrument.ticker}}`
+- **Класс-код:** `{{instrument.classCode}}`
+- **ISIN:** `{{instrument.isin}}`
+{{#if instrument.assetUid}}
+- **Asset UID:** `{{instrument.assetUid}}`
+{{/if}}
+
+### Название
+
+- **Название:** {{instrument.name}}
+
+### Торговая информация
+
+- **Валюта:** {{instrument.currency}}
+- **Лотность:** {{instrument.lot}}
+- **Мин. шаг цены:** {{quote instrument.minPriceIncrement}}
+- **Биржа:** {{instrument.exchange}}
+{{#if instrument.tradingStatus}}
+- **Статус торгов:** {{instrument.tradingStatus}}
+{{/if}}
+
+### Характеристики фонда
+
+{{#if instrument.focusType}}
+- **Тип фокуса:** {{instrument.focusType}}
+{{/if}}
+{{#if instrument.fixedCommission}}
+- **Фиксированная комиссия:** {{quote instrument.fixedCommission}}%
+{{/if}}
+{{#if instrument.numShares}}
+- **Количество паёв:** {{quote instrument.numShares}}
+{{/if}}
+{{#if instrument.rebalancingFreq}}
+- **Частота ребалансировки:** {{instrument.rebalancingFreq}}
+{{/if}}
+{{#if instrument.releasedDate}}
+- **Дата выпуска:** {{instrument.releasedDate}}
+{{/if}}
+
+### География и сектор
+
+- **Страна риска:** {{instrument.countryOfRisk}} ({{instrument.countryOfRiskName}})
+{{#if instrument.sector}}
+- **Сектор:** {{instrument.sector}}
+{{/if}}
+
+### Флаги доступности
+
+- **Покупка доступна:** {{answer instrument.buyAvailableFlag}}
+- **Продажа доступна:** {{answer instrument.sellAvailableFlag}}
+- **Шорт доступен:** {{answer instrument.shortEnabledFlag}}
+- **Торговля через API:** {{answer instrument.apiTradeAvailableFlag}}
+- **Торговля по выходным:** {{answer instrument.weekendFlag}}
+- **Достаточная ликвидность:** {{answer instrument.liquidityFlag}}
+
+### Доступ к торговле
+
+- **Для ИИС:** {{answer instrument.forIisFlag}}
+- **Только для квалифицированных инвесторов:** {{answer instrument.forQualInvestorFlag}}
+- **Заблокированный ТКС:** {{answer instrument.blockedTcaFlag}}
+
+### Исторические данные
+
+{{#if instrument.first1dayCandleDate}}
+- **Первая дневная свеча:** {{instrument.first1dayCandleDate}}
+{{/if}}
+{{#if instrument.first1minCandleDate}}
+- **Первая минутная свеча:** {{instrument.first1minCandleDate}}
+{{/if}}
+
+{{#if instrument.brand}}
+### Бренд
+
+{{#if instrument.brand.logoName}}
+- **Логотип:** {{instrument.brand.logoName}}
+{{/if}}
+{{#if instrument.brand.logoBaseColor}}
+- **Цвет логотипа:** {{instrument.brand.logoBaseColor}}
+{{/if}}
+{{/if}}
+
+

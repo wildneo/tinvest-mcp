@@ -1,0 +1,13 @@
+## Цены последних сделок
+
+{{#if lastPrices}}
+| № | FIGI | UID | Цена | Время | Тип цены |
+|---|------|-----|------|-------|----------|
+{{#each lastPrices}}
+| {{@index}} | `{{#if figi}}{{figi}}{{else}}-{{/if}}` | `{{#if instrumentUid}}{{instrumentUid}}{{else}}-{{/if}}` | {{#if price}}{{quote price}}{{else}}-{{/if}} | {{#if time}}{{time}}{{else}}-{{/if}} | {{#if lastPriceType}}{{lastPriceType}}{{else}}-{{/if}} |
+{{/each}}
+
+**Всего инструментов:** {{lastPrices.length}}
+{{else}}
+**Цены по указанным инструментам не найдены.**
+{{/if}}

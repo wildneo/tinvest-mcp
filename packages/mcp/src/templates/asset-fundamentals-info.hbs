@@ -1,0 +1,144 @@
+## Фундаментальные показатели активов
+
+{{#if fundamentals}}
+{{#each fundamentals}}
+### Актив: `{{assetUid}}`
+
+{{#if currency}}
+**Валюта:** {{currency}}
+{{/if}}
+
+#### Рыночные показатели
+
+| Показатель | Значение |
+|------------|----------|
+{{#if marketCapitalization}}
+| Рыночная капитализация | {{marketCapitalization}} {{currency}} |
+{{/if}}
+{{#if highPriceLast52Weeks}}
+| Максимум за 52 недели | {{highPriceLast52Weeks}} {{currency}} |
+{{/if}}
+{{#if lowPriceLast52Weeks}}
+| Минимум за 52 недели | {{lowPriceLast52Weeks}} {{currency}} |
+{{/if}}
+{{#if averageDailyVolumeLast10Days}}
+| Средний объем (10 дней) | {{averageDailyVolumeLast10Days}} |
+{{/if}}
+{{#if averageDailyVolumeLast4Weeks}}
+| Средний объем (4 недели) | {{averageDailyVolumeLast4Weeks}} |
+{{/if}}
+{{#if sharesOutstanding}}
+| Акций в обращении | {{sharesOutstanding}} |
+{{/if}}
+{{#if freeFloat}}
+| Free Float | {{freeFloat}}% |
+{{/if}}
+
+#### Мультипликаторы оценки
+
+| Показатель | Значение |
+|------------|----------|
+{{#if peRatioTtm}}
+| P/E (TTM) | {{peRatioTtm}} |
+{{/if}}
+{{#if priceToSalesTtm}}
+| P/S (TTM) | {{priceToSalesTtm}} |
+{{/if}}
+{{#if priceToBookTtm}}
+| P/B (TTM) | {{priceToBookTtm}} |
+{{/if}}
+{{#if priceToFreeCashFlowTtm}}
+| P/FCF (TTM) | {{priceToFreeCashFlowTtm}} |
+{{/if}}
+{{#if evToEbitdaMrq}}
+| EV/EBITDA (MRQ) | {{evToEbitdaMrq}} |
+{{/if}}
+
+#### Финансовые показатели (TTM)
+
+| Показатель | Значение |
+|------------|----------|
+{{#if revenueTtm}}
+| Выручка | {{revenueTtm}} {{currency}} |
+{{/if}}
+{{#if ebitdaTtm}}
+| EBITDA | {{ebitdaTtm}} {{currency}} |
+{{/if}}
+{{#if netIncomeTtm}}
+| Чистая прибыль | {{netIncomeTtm}} {{currency}} |
+{{/if}}
+{{#if epsTtm}}
+| EPS | {{epsTtm}} {{currency}} |
+{{/if}}
+{{#if dilutedEpsTtm}}
+| Diluted EPS | {{dilutedEpsTtm}} {{currency}} |
+{{/if}}
+{{#if freeCashFlowTtm}}
+| Свободный денежный поток | {{freeCashFlowTtm}} {{currency}} |
+{{/if}}
+
+#### Показатели рентабельности
+
+| Показатель | Значение |
+|------------|----------|
+{{#if roe}}
+| ROE (Рентабельность капитала) | {{roe}}% |
+{{/if}}
+{{#if roa}}
+| ROA (Рентабельность активов) | {{roa}}% |
+{{/if}}
+{{#if roic}}
+| ROIC | {{roic}}% |
+{{/if}}
+{{#if netMarginMrq}}
+| Маржа чистой прибыли | {{netMarginMrq}}% |
+{{/if}}
+{{#if netInterestMarginMrq}}
+| Рентабельность чистой прибыли | {{netInterestMarginMrq}}% |
+{{/if}}
+
+#### Темпы роста
+
+| Показатель | Значение |
+|------------|----------|
+{{#if fiveYearAnnualRevenueGrowthRate}}
+| Рост выручки (5 лет) | {{fiveYearAnnualRevenueGrowthRate}}% |
+{{/if}}
+{{#if threeYearAnnualRevenueGrowthRate}}
+| Рост выручки (3 года) | {{threeYearAnnualRevenueGrowthRate}}% |
+{{/if}}
+
+#### Долговая нагрузка (MRQ)
+
+| Показатель | Значение |
+|------------|----------|
+{{#if totalDebtMrq}}
+| Общий долг | {{totalDebtMrq}} {{currency}} |
+{{/if}}
+{{#if totalDebtToEquityMrq}}
+| Долг/Капитал | {{totalDebtToEquityMrq}} |
+{{/if}}
+{{#if totalDebtToEbitdaMrq}}
+| Долг/EBITDA | {{totalDebtToEbitdaMrq}} |
+{{/if}}
+
+#### Дополнительные показатели
+
+| Показатель | Значение |
+|------------|----------|
+{{#if beta}}
+| Beta (волатильность) | {{beta}} |
+{{/if}}
+{{#if forwardAnnualDividendYield}}
+| Дивидендная доходность | {{forwardAnnualDividendYield}}% |
+{{/if}}
+{{#if totalEnterpriseValueMrq}}
+| Enterprise Value | {{totalEnterpriseValueMrq}} {{currency}} |
+{{/if}}
+
+{{/each}}
+
+**Всего активов:** {{fundamentals.length}}
+{{else}}
+**Фундаментальные показатели не найдены.**
+{{/if}}

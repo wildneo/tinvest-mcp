@@ -1,0 +1,49 @@
+## Информация об инструменте
+
+### Основные идентификаторы
+
+- **UID:** `{{instrument.uid}}`
+- **Position UID:** `{{instrument.positionUid}}`
+- **FIGI:** `{{instrument.figi}}`
+- **Тикер:** `{{instrument.ticker}}`
+- **Класс-код:** `{{instrument.classCode}}`
+- **ISIN:** `{{instrument.isin}}`
+{{#if instrument.assetUid}}
+- **Asset UID:** `{{instrument.assetUid}}`
+{{/if}}
+
+### Название и тип
+
+- **Название:** {{instrument.name}}
+- **Тип инструмента:** {{instrument.instrumentType}}
+{{#if instrument.instrumentKind}}
+- **Вид инструмента:** {{instrument.instrumentKind}}
+{{/if}}
+
+### Торговая информация
+
+- **Валюта:** {{instrument.currency}}
+- **Лотность:** {{instrument.lot}}
+- **Мин. шаг цены:** {{quote instrument.minPriceIncrement}}
+- **Биржа:** {{instrument.exchange}}
+{{#if instrument.tradingStatus}}
+- **Статус торгов:** {{instrument.tradingStatus}}
+{{/if}}
+
+### География и сектор
+
+- **Страна риска:** {{instrument.countryOfRisk}} ({{instrument.countryOfRiskName}})
+
+### Флаги доступности
+
+- **Покупка доступна:** {{answer instrument.buyAvailableFlag}}
+- **Продажа доступна:** {{answer instrument.sellAvailableFlag}}
+- **Шорт доступен:** {{answer instrument.shortEnabledFlag}}
+- **Торговля через API:** {{answer instrument.apiTradeAvailableFlag}}
+- **Торговля по выходным:** {{answer instrument.weekendFlag}}
+
+### Доступ к торговле
+
+- **Для ИИС:** {{answer instrument.forIisFlag}}
+- **Только для квалифицированных инвесторов:** {{answer instrument.forQualInvestorFlag}}
+- **Заблокированный ТКС:** {{answer instrument.blockedTcaFlag}}

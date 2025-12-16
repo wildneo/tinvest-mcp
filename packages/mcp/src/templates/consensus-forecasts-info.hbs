@@ -1,0 +1,42 @@
+## Консенсус-прогнозы аналитиков
+
+{{#if items}}
+### Прогнозы по инструментам
+
+| № | UID | Asset UID | Целевая цена | Диапазон (Low-High) | Buy | Hold | Sell | Валюта | Дата создания |
+|---|-----|-----------|--------------|---------------------|-----|------|------|--------|---------------|
+{{#each items}}
+| {{@index}} | `{{#if uid}}{{uid}}{{else}}-{{/if}}` | `{{#if assetUid}}{{assetUid}}{{else}}-{{/if}}` | {{#if bestTargetPrice}}{{quote bestTargetPrice}}{{else}}-{{/if}} | {{#if bestTargetLow}}{{quote bestTargetLow}}{{/if}} - {{#if bestTargetHigh}}{{quote bestTargetHigh}}{{/if}} | {{#if totalBuyRecommend}}{{totalBuyRecommend}}{{else}}0{{/if}} | {{#if totalHoldRecommend}}{{totalHoldRecommend}}{{else}}0{{/if}} | {{#if totalSellRecommend}}{{totalSellRecommend}}{{else}}0{{/if}} | {{#if currency}}{{currency}}{{else}}-{{/if}} | {{#if createdAt}}{{createdAt}}{{else}}-{{/if}} |
+{{/each}}
+
+**Всего прогнозов:** {{items.length}}
+
+### Статистика рекомендаций
+
+{{#each items}}
+{{#if assetUid}}
+#### Актив: `{{assetUid}}`
+
+- **Целевая цена (Best Target):** {{#if bestTargetPrice}}{{quote bestTargetPrice}}{{else}}-{{/if}}
+- **Диапазон прогнозов:**
+  - Низкая: {{#if bestTargetLow}}{{quote bestTargetLow}}{{else}}-{{/if}}
+  - Высокая: {{#if bestTargetHigh}}{{quote bestTargetHigh}}{{else}}-{{/if}}
+- **Рекомендации аналитиков:**
+  - 🟢 Покупать: {{#if totalBuyRecommend}}{{totalBuyRecommend}}{{else}}0{{/if}}
+  - 🟡 Держать: {{#if totalHoldRecommend}}{{totalHoldRecommend}}{{else}}0{{/if}}
+  - 🔴 Продавать: {{#if totalSellRecommend}}{{totalSellRecommend}}{{else}}0{{/if}}
+
+{{/if}}
+{{/each}}
+
+{{#if page}}
+### Пагинация
+
+- **Лимит:** {{page.limit}}
+{{#if page.pageNumber}}
+- **Номер страницы:** {{page.pageNumber}}
+{{/if}}
+{{/if}}
+{{else}}
+**Консенсус-прогнозы не найдены.**
+{{/if}}

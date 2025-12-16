@@ -1,0 +1,158 @@
+## Информация об активе
+
+### Основные идентификаторы
+
+- **UID:** `{{asset.uid}}`
+{{#if asset.isin}}
+- **ISIN:** `{{asset.isin}}`
+{{/if}}
+{{#if asset.cfi}}
+- **CFI:** `{{asset.cfi}}`
+{{/if}}
+{{#if asset.codeNsd}}
+- **Код НРД:** `{{asset.codeNsd}}`
+{{/if}}
+
+### Название и описание
+
+- **Название:** {{asset.name}}
+{{#if asset.nameBrief}}
+- **Краткое название:** {{asset.nameBrief}}
+{{/if}}
+{{#if asset.description}}
+- **Описание:** {{asset.description}}
+{{/if}}
+
+### География и классификация
+
+{{#if asset.countryOfRisk}}
+- **Страна риска:** {{asset.countryOfRisk}} ({{asset.countryOfRiskName}})
+{{/if}}
+{{#if asset.sector}}
+- **Сектор:** {{asset.sector}}
+{{/if}}
+
+### Размещение и объем
+
+{{#if asset.issueSize}}
+- **Объём выпуска:** {{asset.issueSize}}
+{{/if}}
+{{#if asset.issueSizePlan}}
+- **План выпуска:** {{asset.issueSizePlan}}
+{{/if}}
+{{#if asset.placementDate}}
+- **Дата размещения:** {{asset.placementDate}}
+{{/if}}
+{{#if asset.placementPrice}}
+- **Цена размещения:** {{quote asset.placementPrice}}
+{{/if}}
+
+### Статус актива
+
+{{#if asset.status}}
+- **Статус:** {{asset.status}}
+{{/if}}
+{{#if asset.updatedAt}}
+- **Обновлено:** {{asset.updatedAt}}
+{{/if}}
+{{#if asset.deletedAt}}
+- **Удалено:** {{asset.deletedAt}}
+{{/if}}
+
+{{#if asset.brand}}
+### Бренд
+
+{{#if asset.brand.uid}}
+- **UID бренда:** `{{asset.brand.uid}}`
+{{/if}}
+{{#if asset.brand.name}}
+- **Название бренда:** {{asset.brand.name}}
+{{/if}}
+{{#if asset.brand.description}}
+- **Описание:** {{asset.brand.description}}
+{{/if}}
+{{#if asset.brand.company}}
+- **Компания:** {{asset.brand.company}}
+{{/if}}
+{{#if asset.brand.sector}}
+- **Сектор:** {{asset.brand.sector}}
+{{/if}}
+{{#if asset.brand.countryOfRisk}}
+- **Страна риска:** {{asset.brand.countryOfRiskName}} ({{asset.brand.countryOfRisk}})
+{{/if}}
+{{#if asset.brand.info}}
+- **Информация:** {{asset.brand.info}}
+{{/if}}
+{{/if}}
+
+{{#if asset.instruments}}
+### Связанные инструменты ({{asset.instruments.length}})
+
+| № | Название | Тикер | Класс-код | Тип |
+|---|----------|-------|-----------|-----|
+{{#each asset.instruments}}
+| {{@index}} | {{name}} | {{ticker}} | {{classCode}} | {{instrumentType}} |
+{{/each}}
+{{/if}}
+{{#if asset.security}}
+
+### Дополнительная информация о ценной бумаге
+
+{{#if asset.security.share}}
+
+#### Акция
+
+{{#if asset.security.share.dividendRate}}
+- **Ставка дивиденда:** {{quote asset.security.share.dividendRate}}
+{{/if}}
+{{#if asset.security.share.preferredShareType}}
+- **Тип привилегированной акции:** {{asset.security.share.preferredShareType}}
+{{/if}}
+{{#if asset.security.share.primaryIndex}}
+- **Основной индекс:** {{asset.security.share.primaryIndex}}
+{{/if}}
+{{#if asset.security.share.registryDate}}
+- **Дата реестра:** {{asset.security.share.registryDate}}
+{{/if}}
+{{/if}}
+{{#if asset.security.bond}}
+
+#### Облигация
+
+{{#if asset.security.bond.couponQuantityPerYear}}
+- **Купонов в год:** {{asset.security.bond.couponQuantityPerYear}}
+{{/if}}
+{{#if asset.security.bond.maturityDate}}
+- **Дата погашения:** {{asset.security.bond.maturityDate}}
+{{/if}}
+- **Плавающий купон:** {{answer asset.security.bond.floatingCouponFlag}}
+- **Бессрочная облигация:** {{answer asset.security.bond.perpetualFlag}}
+- **Амортизация:** {{answer asset.security.bond.amortizationFlag}}
+{{/if}}
+{{#if asset.security.etf}}
+
+#### ETF
+
+{{#if asset.security.etf.releasedDate}}
+- **Дата выпуска:** {{asset.security.etf.releasedDate}}
+{{/if}}
+{{#if asset.security.etf.focusType}}
+- **Тип фокуса:** {{asset.security.etf.focusType}}
+{{/if}}
+{{#if asset.security.etf.primaryIndex}}
+- **Основной индекс:** {{asset.security.etf.primaryIndex}}
+{{/if}}
+{{#if asset.security.etf.totalExpense}}
+- **Общие расходы:** {{quote asset.security.etf.totalExpense}}
+{{/if}}
+- **Выплата дивидендов:** {{answer asset.security.etf.divYieldFlag}}
+{{/if}}
+{{#if asset.security.clearingCertificate}}
+
+#### Клиринговый сертификат
+
+{{#if asset.security.clearingCertificate.nominal}}
+- **Номинал:** {{quote asset.security.clearingCertificate.nominal}}
+{{/if}}
+{{/if}}
+{{/if}}

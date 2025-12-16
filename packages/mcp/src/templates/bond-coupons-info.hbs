@@ -1,0 +1,24 @@
+## График выплат купонов по облигации
+
+{{#if events}}
+### Предстоящие и прошлые купонные выплаты
+
+| № | Номер купона | Дата выплаты | Период купона | Сумма на 1 облигацию | Период (дней) |
+|---|--------------|--------------|---------------|----------------------|---------------|
+{{#each events}}
+| {{@index}} | {{#if couponNumber}}{{couponNumber}}{{else}}-{{/if}} | {{#if couponDate}}{{couponDate}}{{else}}-{{/if}} | {{#if couponStartDate}}{{couponStartDate}}{{/if}} - {{#if couponEndDate}}{{couponEndDate}}{{/if}} | {{#if payOneBond}}{{quote payOneBond}}{{else}}-{{/if}} | {{#if couponPeriod}}{{couponPeriod}}{{else}}-{{/if}} |
+{{/each}}
+
+**Всего купонов:** {{events.length}}
+
+{{#if events.[0].figi}}
+### Дополнительная информация
+
+- **FIGI:** `{{events.[0].figi}}`
+{{#if events.[0].fixDate}}
+- **Дата фиксации реестра:** {{events.[0].fixDate}}
+{{/if}}
+{{/if}}
+{{else}}
+**Купонные выплаты за указанный период не найдены.**
+{{/if}}

@@ -1,0 +1,31 @@
+## Портфель по счёту `{{accountId}}`
+
+### Общая стоимость: {{quote totalAmountPortfolio}}
+
+**Активы:**
+- Акции: {{quote totalAmountShares}}
+- Облигации: {{quote totalAmountBonds}}
+- ETF: {{quote totalAmountEtf}}
+- Валюта: {{quote totalAmountCurrencies}}
+
+{{#if positions}}
+### 🎯 Позиции ({{positions.length}})
+
+{{#each positions}}
+#### {{ticker}} ({{classCode}})
+
+- **Тип:** {{instrumentType}}
+- **Количество:** {{quote quantity}} шт.
+- **Текущая цена:** {{quote currentPrice}}
+- **Средняя цена:** {{quote averagePositionPrice}}
+- **Доходность:** {{quote expectedYield}}
+
+{{/each}}
+{{/if}}
+
+### Доходность
+
+- **Ожидаемая:** {{quote expectedYield}}
+{{#if dailyYield}}
+- **За день:** {{quote dailyYield}} ({{quote dailyYieldRelative}}%)
+{{/if}}

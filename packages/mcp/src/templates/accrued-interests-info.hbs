@@ -1,0 +1,29 @@
+## Накопленный купонный доход (НКД) по облигации
+
+{{#if accruedInterests}}
+### История НКД
+
+| № | Дата | Значение | Процент (%) | Номинал |
+|---|------|----------|-------------|---------|
+{{#each accruedInterests}}
+| {{@index}} | {{#if date}}{{date}}{{else}}-{{/if}} | {{#if value}}{{quote value}}{{else}}-{{/if}} | {{#if valuePercent}}{{quote valuePercent}}{{else}}-{{/if}} | {{#if nominal}}{{quote nominal}}{{else}}-{{/if}} |
+{{/each}}
+
+**Всего записей:** {{accruedInterests.length}}
+
+{{#if accruedInterests.[0]}}
+### Текущая информация
+
+{{#if accruedInterests.[0].value}}
+- **Текущий НКД:** {{quote accruedInterests.[0].value}}
+{{/if}}
+{{#if accruedInterests.[0].valuePercent}}
+- **В процентах от номинала:** {{quote accruedInterests.[0].valuePercent}}%
+{{/if}}
+{{#if accruedInterests.[0].nominal}}
+- **Номинал облигации:** {{quote accruedInterests.[0].nominal}}
+{{/if}}
+{{/if}}
+{{else}}
+**Данные о накопленном купонном доходе за указанный период не найдены.**
+{{/if}}

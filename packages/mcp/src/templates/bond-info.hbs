@@ -1,0 +1,98 @@
+## Информация об облигации
+
+### Основные идентификаторы
+
+- **UID:** `{{instrument.uid}}`
+- **Position UID:** `{{instrument.positionUid}}`
+- **FIGI:** `{{instrument.figi}}`
+- **Тикер:** `{{instrument.ticker}}`
+- **Класс-код:** `{{instrument.classCode}}`
+- **ISIN:** `{{instrument.isin}}`
+{{#if instrument.assetUid}}
+- **Asset UID:** `{{instrument.assetUid}}`
+{{/if}}
+
+### Название
+
+- **Название:** {{instrument.name}}
+
+### Торговая информация
+
+- **Валюта:** {{instrument.currency}}
+- **Лотность:** {{instrument.lot}}
+- **Мин. шаг цены:** {{quote instrument.minPriceIncrement}}
+- **Биржа:** {{instrument.exchange}}
+{{#if instrument.tradingStatus}}
+- **Статус торгов:** {{instrument.tradingStatus}}
+{{/if}}
+
+### Номинал и цена размещения
+
+{{#if instrument.nominal}}
+- **Номинал:** {{quote instrument.nominal}} {{instrument.nominal.currency}}
+{{/if}}
+{{#if instrument.initialNominal}}
+- **Первоначальный номинал:** {{quote instrument.initialNominal}} {{instrument.initialNominal.currency}}
+{{/if}}
+{{#if instrument.placementPrice}}
+- **Цена размещения:** {{quote instrument.placementPrice}} {{instrument.placementPrice.currency}}
+{{/if}}
+
+### Купоны и НКД
+
+{{#if instrument.couponQuantityPerYear}}
+- **Купонов в год:** {{instrument.couponQuantityPerYear}}
+{{/if}}
+{{#if instrument.aciValue}}
+- **НКД (накопленный купонный доход):** {{quote instrument.aciValue}} {{instrument.aciValue.currency}}
+{{/if}}
+- **Плавающий купон:** {{answer instrument.floatingCouponFlag}}
+- **Амортизация долга:** {{answer instrument.amortizationFlag}}
+- **Бессрочная облигация:** {{answer instrument.perpetualFlag}}
+
+### Даты
+
+{{#if instrument.stateRegDate}}
+- **Дата гос. регистрации:** {{instrument.stateRegDate}}
+{{/if}}
+{{#if instrument.placementDate}}
+- **Дата размещения:** {{instrument.placementDate}}
+{{/if}}
+{{#if instrument.maturityDate}}
+- **Дата погашения:** {{instrument.maturityDate}}
+{{/if}}
+
+### Эмиссия
+
+{{#if instrument.issueKind}}
+- **Форма выпуска:** {{instrument.issueKind}}
+{{/if}}
+{{#if instrument.issueSize}}
+- **Размер выпуска:** {{instrument.issueSize}}
+{{/if}}
+{{#if instrument.issueSizePlan}}
+- **Плановый размер выпуска:** {{instrument.issueSizePlan}}
+{{/if}}
+
+### География и сектор
+
+- **Страна риска:** {{instrument.countryOfRisk}} ({{instrument.countryOfRiskName}})
+{{#if instrument.sector}}
+- **Сектор:** {{instrument.sector}}
+{{/if}}
+
+### Флаги доступности
+
+- **Покупка доступна:** {{answer instrument.buyAvailableFlag}}
+- **Продажа доступна:** {{answer instrument.sellAvailableFlag}}
+- **Шорт доступен:** {{answer instrument.shortEnabledFlag}}
+- **Торговля через API:** {{answer instrument.apiTradeAvailableFlag}}
+- **Торговля по выходным:** {{answer instrument.weekendFlag}}
+
+### Доступ к торговле
+
+- **Для ИИС:** {{answer instrument.forIisFlag}}
+- **Только для квалифицированных инвесторов:** {{answer instrument.forQualInvestorFlag}}
+- **Заблокированный ТКС:** {{answer instrument.blockedTcaFlag}}
+
+
