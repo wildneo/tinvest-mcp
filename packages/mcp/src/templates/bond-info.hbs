@@ -29,13 +29,13 @@
 ### Номинал и цена размещения
 
 {{#if instrument.nominal}}
-- **Номинал:** {{quote instrument.nominal}} {{instrument.nominal.currency}}
+- **Номинал:** {{quote instrument.nominal}}
 {{/if}}
 {{#if instrument.initialNominal}}
-- **Первоначальный номинал:** {{quote instrument.initialNominal}} {{instrument.initialNominal.currency}}
+- **Первоначальный номинал:** {{quote instrument.initialNominal}}
 {{/if}}
 {{#if instrument.placementPrice}}
-- **Цена размещения:** {{quote instrument.placementPrice}} {{instrument.placementPrice.currency}}
+- **Цена размещения:** {{quote instrument.placementPrice}}
 {{/if}}
 
 ### Купоны и НКД
@@ -44,7 +44,7 @@
 - **Купонов в год:** {{instrument.couponQuantityPerYear}}
 {{/if}}
 {{#if instrument.aciValue}}
-- **НКД (накопленный купонный доход):** {{quote instrument.aciValue}} {{instrument.aciValue.currency}}
+- **НКД (накопленный купонный доход):** {{quote instrument.aciValue}}
 {{/if}}
 - **Плавающий купон:** {{answer instrument.floatingCouponFlag}}
 - **Амортизация долга:** {{answer instrument.amortizationFlag}}

@@ -2,18 +2,47 @@ import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import {
     instrumentsServiceBondBy,
     instrumentsServiceEtfBy,
+    instrumentsServiceFindInstrument,
     instrumentsServiceGetInstrumentBy,
     instrumentsServiceShareBy,
 } from '@wildneo/tinvest-client';
-import { zV1InstrumentRequest } from '@wildneo/tinvest-client/validations';
+import {
+    zV1FindInstrumentRequest,
+    zV1InstrumentRequest,
+} from '@wildneo/tinvest-client/validations';
 import {
     getBondFromTemplate,
     getEtfFromTemplate,
+    getFindInstrumentFromTemplate,
     getInstrumentFromTemplate,
     getShareFromTemplate,
 } from '../utils/templates.js';
 
 export function registerInstrumentTools(server: McpServer) {
+    server.registerTool(
+        'find_instrument',
+        {
+            title: 'Найти инструмент по строке поиска',
+            description:
+                'Найти инструменты по строке поиска (название, тикер и т.д.). Поддерживает фильтрацию по типу инструмента и доступности торговли через API.',
+            inputSchema: zV1FindInstrumentRequest,
+        },
+        async (body) => {
+            const { data } = await instrumentsServiceFindInstrument({ body });
+
+            const findInstrumentInfo = await getFindInstrumentFromTemplate(data);
+
+            return {
+                content: [
+                    {
+                        text: findInstrumentInfo,
+                        type: 'text',
+                    },
+                ],
+            };
+        },
+    );
+
     server.registerTool(
         'get_instrument_info',
         {

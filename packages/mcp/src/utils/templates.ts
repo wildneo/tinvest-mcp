@@ -192,3 +192,13 @@ export async function getCandlesFromTemplate(data: V1GetCandlesResponse) {
 
     return compiledTemplate(data);
 }
+
+export async function getFindInstrumentFromTemplate(data: V1FindInstrumentResponse) {
+    const template = await readFile(
+        new URL('../templates/find-instrument-info.hbs', import.meta.url),
+        'utf-8',
+    );
+    const compiledTemplate = Handlebars.compile<V1FindInstrumentResponse>(template);
+
+    return compiledTemplate(data);
+}

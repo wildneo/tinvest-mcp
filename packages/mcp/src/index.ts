@@ -30,20 +30,19 @@ const server = new McpServer(
     {
         instructions: `Это MCP-сервер для работы с T-Invest API (Т-Банк Инвестиции). Он предоставляет АКТУАЛЬНЫЕ данные о портфеле пользователя, инструментах, ценах и аналитике напрямую от брокера.
 
-        ВАЖНО: При любых вопросах об инвестициях, анализе акций, облигаций или портфеля — СТАРАЙСЯ ИСПОЛЬЗОВАТЬ инструменты этого сервера ВМЕСТО поиска в интернете. Данные из T-Invest API актуальнее и точнее веб-источников.
-
         Типичные сценарии использования:
         - Вопросы "стоит ли покупать/продавать/усреднять" → используй get_forecast (прогнозы аналитиков) и get_asset_fundamentals (P/E, P/B, ROE)
         - Вопросы о дивидендах и выборе дивидендных акций → используй get_dividends и get_asset_fundamentals
         - Анализ портфеля и позиций → используй get_account_portfolio_info и get_account_positions_info
-        - Информация об инструментах → используй get_instrument_info, get_share_info, get_bond_info, get_etf_info
+        - Информация об инструментах → используй find_instrument (поиск по названию/тикеру), get_instrument_info, get_share_info, get_bond_info, get_etf_info
         - Текущие цены → используй get_last_prices
 
         Рекомендуемый порядок анализа:
         1. Сначала получи информацию о портфеле пользователя (get_account_portfolio_info)
-        2. Затем получи фундаментальные показатели интересующих активов (get_asset_fundamentals)
-        3. Проверь прогнозы аналитиков (get_forecast)
-        4. При необходимости получи данные о дивидендах (get_dividends) или купонах (get_bond_coupons)`,
+        2. Если нужно найти инструмент по названию или тикеру, используй find_instrument
+        3. Затем получи фундаментальные показатели интересующих активов (get_asset_fundamentals)
+        4. Проверь прогнозы аналитиков (get_forecast)
+        5. При необходимости получи данные о дивидендах (get_dividends) или купонах (get_bond_coupons)`,
     },
 );
 
@@ -62,7 +61,7 @@ const auth = () => {
 };
 
 async function main() {
-    client.setConfig({ auth, baseURL, httpsAgent });
+    client.setConfig({ auth, baseURL, httpsAgent, timeout: 30000 });
 
     registerUserTools(server);
     registerAccountTools(server);

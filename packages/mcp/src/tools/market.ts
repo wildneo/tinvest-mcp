@@ -11,7 +11,7 @@ export function registerMarketDataTools(server: McpServer) {
         'get_last_prices',
         {
             title: 'Получить текущие цены последних сделок по списку инструментов',
-            description: `Получить актуальные рыночные цены по списку инструментов в реальном времени.
+            description: `Получить актуальные рыночные цены по списку инструментов в реальном времени по figi, instrument_uid или ticker + '_' + class_code.
 
 КОГДА ИСПОЛЬЗОВАТЬ:
 - При расчёте текущей стоимости позиции
@@ -39,7 +39,7 @@ export function registerMarketDataTools(server: McpServer) {
         'get_candles',
         {
             title: 'Получить исторические свечи по инструменту',
-            description: `Получить исторические данные о ценах (свечи OHLCV) по инструменту за указанный период.
+            description: `Получить исторические данные о ценах (свечи OHLCV) по инструменту за указанный период по figi или instrument_uid.
 
 КОГДА ИСПОЛЬЗОВАТЬ:
 - При техническом анализе инструмента

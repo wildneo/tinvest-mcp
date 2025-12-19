@@ -16,7 +16,7 @@ export function formatQuotation(value: V1Quotation | V1MoneyValue) {
         return `${sign}${unitsAbs}.${fraction.padStart(2, '0')} ${currency}`;
     }
 
-    return `${sign}${unitsAbs}.${fraction}`;
+    return `${sign}${unitsAbs}${fraction ? `.${fraction}` : ''}`;
 }
 
 export function formatBoolean(value: boolean) {
