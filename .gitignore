@@ -11,6 +11,7 @@ dist/
 .cursor/
 *.swp
 *.swo
+CLAUDE.md
 
 # OS
 .DS_Store
