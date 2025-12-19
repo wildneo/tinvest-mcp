@@ -5,11 +5,10 @@ import {
     instrumentsServiceFindInstrument,
     instrumentsServiceGetInstrumentBy,
     instrumentsServiceShareBy,
+    V1InstrumentIdType,
 } from '@wildneo/tinvest-client';
-import {
-    zV1FindInstrumentRequest,
-    zV1InstrumentRequest,
-} from '@wildneo/tinvest-client/validations';
+import { zV1FindInstrumentRequest } from '@wildneo/tinvest-client/validations';
+import { z } from 'zod';
 import {
     getBondFromTemplate,
     getEtfFromTemplate,
@@ -23,8 +22,14 @@ export function registerInstrumentTools(server: McpServer) {
         'find_instrument',
         {
             title: 'Найти инструмент по строке поиска',
-            description:
-                'Найти инструменты по строке поиска (название, тикер и т.д.). Поддерживает фильтрацию по типу инструмента и доступности торговли через API.',
+            description: `Найти инструменты по строке поиска (название, тикер, ISIN и т.д.).
+
+ВАЖНО: Этот инструмент возвращает UID инструмента, который нужно использовать для ВСЕХ остальных инструментов.
+
+КАК ИСПОЛЬЗОВАТЬ:
+1. Введите любую строку: название компании ("Сбербанк", "Газпром"), тикер ("SBER", "GAZP"), или ISIN
+2. Опционально укажите фильтр instrumentKind для поиска конкретного типа
+3. Результат содержит UID — используйте его для всех инструментов (кроме get_asset_fundamentals, для которого нужен Asset UID из детальной информации)`,
             inputSchema: zV1FindInstrumentRequest,
         },
         async (body) => {
@@ -46,13 +51,17 @@ export function registerInstrumentTools(server: McpServer) {
     server.registerTool(
         'get_instrument_info',
         {
-            title: 'Получить детальную информацию об инструменте по его идентификатору',
+            title: 'Получить детальную информацию об инструменте по UID',
             description:
-                'Получить детальную информацию об инструменте по его идентификатору (uid, figi или ticker_classCode, например T_TQBR)',
-            inputSchema: zV1InstrumentRequest,
+                'Получить детальную информацию об инструменте по UID. UID можно получить через find_instrument.',
+            inputSchema: z.object({
+                uid: z.string().describe('UID инструмента. Получить через find_instrument.'),
+            }),
         },
         async (body) => {
-            const { data } = await instrumentsServiceGetInstrumentBy({ body });
+            const { data } = await instrumentsServiceGetInstrumentBy({
+                body: { id: body.uid, idType: V1InstrumentIdType.INSTRUMENT_ID_TYPE_UID },
+            });
 
             const instrumentInfo = await getInstrumentFromTemplate(data);
 
@@ -70,13 +79,17 @@ export function registerInstrumentTools(server: McpServer) {
     server.registerTool(
         'get_share_info',
         {
-            title: 'Получить детальную информацию об акции по её идентификатору',
+            title: 'Получить детальную информацию об акции по UID',
             description:
-                'Получить детальную информацию об акции по её идентификатору (uid, figi или ticker_classCode)',
-            inputSchema: zV1InstrumentRequest,
+                'Получить детальную информацию об акции по UID. UID можно получить через find_instrument. Возвращает Asset UID для использования в get_asset_fundamentals.',
+            inputSchema: z.object({
+                uid: z.string().describe('UID акции. Получить через find_instrument.'),
+            }),
         },
         async (body) => {
-            const { data } = await instrumentsServiceShareBy({ body });
+            const { data } = await instrumentsServiceShareBy({
+                body: { id: body.uid, idType: V1InstrumentIdType.INSTRUMENT_ID_TYPE_UID },
+            });
 
             const shareInfo = await getShareFromTemplate(data);
 
@@ -94,13 +107,17 @@ export function registerInstrumentTools(server: McpServer) {
     server.registerTool(
         'get_bond_info',
         {
-            title: 'Получить детальную информацию об облигации по её идентификатору',
+            title: 'Получить детальную информацию об облигации по UID',
             description:
-                'Получить детальную информацию об облигации по её идентификатору (uid, figi или ticker_classCode)',
-            inputSchema: zV1InstrumentRequest,
+                'Получить детальную информацию об облигации по UID. UID можно получить через find_instrument. Возвращает Asset UID для использования в get_asset_fundamentals.',
+            inputSchema: z.object({
+                uid: z.string().describe('UID облигации. Получить через find_instrument.'),
+            }),
         },
         async (body) => {
-            const { data } = await instrumentsServiceBondBy({ body });
+            const { data } = await instrumentsServiceBondBy({
+                body: { id: body.uid, idType: V1InstrumentIdType.INSTRUMENT_ID_TYPE_UID },
+            });
 
             const bondInfo = await getBondFromTemplate(data);
 
@@ -118,13 +135,17 @@ export function registerInstrumentTools(server: McpServer) {
     server.registerTool(
         'get_etf_info',
         {
-            title: 'Получить детальную информацию о фонде (ETF) по его идентификатору',
+            title: 'Получить детальную информацию о фонде (ETF) по UID',
             description:
-                'Получить детальную информацию о фонде (ETF) по его идентификатору (uid, figi или ticker_classCode)',
-            inputSchema: zV1InstrumentRequest,
+                'Получить детальную информацию о фонде (ETF) по UID. UID можно получить через find_instrument. Возвращает Asset UID для использования в get_asset_fundamentals.',
+            inputSchema: z.object({
+                uid: z.string().describe('UID фонда. Получить через find_instrument.'),
+            }),
         },
         async (body) => {
-            const { data } = await instrumentsServiceEtfBy({ body });
+            const { data } = await instrumentsServiceEtfBy({
+                body: { id: body.uid, idType: V1InstrumentIdType.INSTRUMENT_ID_TYPE_UID },
+            });
 
             const etfInfo = await getEtfFromTemplate(data);
 

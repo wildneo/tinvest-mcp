@@ -1,13 +1,14 @@
 ## Результаты поиска инструментов
 
 {{#if instruments}}
-| № | Название | Тикер | FIGI | UID | Asset UID | Класс-код | Тип инструмента | Вид инструмента |
-|---|---------|-------|------|-----|-----------|-----------|----------------|-----------------|
+| № | Название | Тикер | FIGI | UID | Класс-код | Тип инструмента | Вид инструмента |
+|---|---------|-------|------|-----|-----------|----------------|-----------------|
 {{#each instruments}}
-| {{@index}} | {{#if name}}{{name}}{{else}}-{{/if}} | `{{#if ticker}}{{ticker}}{{else}}-{{/if}}` | `{{#if figi}}{{figi}}{{else}}-{{/if}}` | `{{#if uid}}{{uid}}{{else}}-{{/if}}` | `{{#if assetUid}}{{assetUid}}{{else}}-{{/if}}` | `{{#if classCode}}{{classCode}}{{else}}-{{/if}}` | {{#if instrumentType}}{{instrumentType}}{{else}}-{{/if}} | {{#if instrumentKind}}{{instrumentKind}}{{else}}-{{/if}} |
+| {{@index}} | {{#if name}}{{name}}{{else}}-{{/if}} | `{{#if ticker}}{{ticker}}{{else}}-{{/if}}` | `{{#if figi}}{{figi}}{{else}}-{{/if}}` | `{{#if uid}}{{uid}}{{else}}-{{/if}}` | `{{#if classCode}}{{classCode}}{{else}}-{{/if}}` | {{#if instrumentType}}{{instrumentType}}{{else}}-{{/if}} | {{#if instrumentKind}}{{instrumentKind}}{{else}}-{{/if}} |
 {{/each}}
 
 **Найдено инструментов:** {{instruments.length}}
+
 {{else}}
 **Инструменты по запросу не найдены.**
 {{/if}}

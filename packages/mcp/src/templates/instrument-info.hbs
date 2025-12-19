@@ -47,3 +47,7 @@
 - **Для ИИС:** {{answer instrument.forIisFlag}}
 - **Только для квалифицированных инвесторов:** {{answer instrument.forQualInvestorFlag}}
 - **Заблокированный ТКС:** {{answer instrument.blockedTcaFlag}}
+
+{{#if instrument.assetUid}}
+**ВАЖНО:** Для получения фундаментальных показателей используй `get_asset_fundamentals` с Asset UID: `{{instrument.assetUid}}`
+{{/if}}
