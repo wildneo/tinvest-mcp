@@ -2,6 +2,7 @@ import { readFile } from 'node:fs/promises';
 import type {
     V1AssetResponse,
     V1BondResponse,
+    V1EditFavoritesResponse,
     V1EtfResponse,
     V1FindInstrumentResponse,
     V1GetAccountsResponse,
@@ -11,6 +12,8 @@ import type {
     V1GetCandlesResponse,
     V1GetConsensusForecastsResponse,
     V1GetDividendsResponse,
+    V1GetFavoriteGroupsResponse,
+    V1GetFavoritesResponse,
     V1GetForecastResponse,
     V1GetInfoResponse,
     V1GetLastPricesResponse,
@@ -225,6 +228,53 @@ export async function getOfzCouponCalendarFromTemplate(data: OfzCouponCalendarRe
         'utf-8',
     );
     const compiledTemplate = Handlebars.compile<OfzCouponCalendarResult>(template);
+
+    return compiledTemplate(data);
+}
+
+export async function getFavoritesFromTemplate(data: V1GetFavoritesResponse) {
+    const template = await readFile(
+        new URL('../templates/favorites-list.hbs', import.meta.url),
+        'utf-8',
+    );
+    const compiledTemplate = Handlebars.compile<V1GetFavoritesResponse>(template);
+
+    return compiledTemplate(data);
+}
+
+export async function getFavoriteGroupsFromTemplate(data: V1GetFavoriteGroupsResponse) {
+    const template = await readFile(
+        new URL('../templates/favorite-groups.hbs', import.meta.url),
+        'utf-8',
+    );
+    const compiledTemplate = Handlebars.compile<V1GetFavoriteGroupsResponse>(template);
+
+    return compiledTemplate(data);
+}
+
+export async function getEditFavoritesResultFromTemplate(data: V1EditFavoritesResponse) {
+    const template = await readFile(
+        new URL('../templates/favorites-edit-result.hbs', import.meta.url),
+        'utf-8',
+    );
+    const compiledTemplate = Handlebars.compile<V1EditFavoritesResponse>(template);
+
+    return compiledTemplate(data);
+}
+
+export type FavoriteGroupResultData = {
+    action: 'create' | 'delete';
+    groupId?: string;
+    groupName?: string;
+    success: boolean;
+};
+
+export async function getFavoriteGroupResultFromTemplate(data: FavoriteGroupResultData) {
+    const template = await readFile(
+        new URL('../templates/favorite-group-result.hbs', import.meta.url),
+        'utf-8',
+    );
+    const compiledTemplate = Handlebars.compile<FavoriteGroupResultData>(template);
 
     return compiledTemplate(data);
 }

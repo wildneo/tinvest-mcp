@@ -10,6 +10,7 @@ import {
     registerAccountTools,
     registerAnalyticsTools,
     registerCalendarTools,
+    registerFavoritesTools,
     registerInstrumentTools,
     registerMarketDataTools,
 } from './tools/index.js';
@@ -64,6 +65,7 @@ async function main() {
     registerMarketDataTools(server);
     registerAnalyticsTools(server);
     registerCalendarTools(server);
+    registerFavoritesTools(server);
 
     await server.connect(transport);
 

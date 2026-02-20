@@ -1,0 +1,15 @@
+## Результат редактирования избранного{{#if groupId}} (группа: `{{groupId}}`){{/if}}
+
+{{#if favoriteInstruments}}
+### Текущий список избранных инструментов
+
+| Тикер | Название | FIGI | UID | Тип |
+|-------|----------|------|-----|-----|
+{{#each favoriteInstruments}}
+| `{{#if ticker}}{{ticker}}{{else}}-{{/if}}` | {{#if name}}{{name}}{{else}}-{{/if}} | `{{#if figi}}{{figi}}{{else}}-{{/if}}` | `{{#if uid}}{{uid}}{{else}}-{{/if}}` | {{#if instrumentType}}{{instrumentType}}{{else}}-{{/if}} |
+{{/each}}
+
+**Всего:** {{favoriteInstruments.length}}
+{{else}}
+Список избранных пуст.
+{{/if}}
