@@ -1,0 +1,65 @@
+## Купонный календарь ОФЗ-ПД
+
+### Стратегия: {{strategyDescription}}
+
+### Выбранные облигации
+
+| Тикер | Название | Погашение | Цена | YTM | Эфф. YTM | Тек. дох. | Купон/год | Месяцы |
+|-------|----------|-----------|------|-----|----------|-----------|-----------|--------|
+{{#each selectedBonds}}
+| {{ticker}} | {{truncate name 20}} | {{formatDate maturityDate}} | {{round price 2}}% | {{round ytm 2}}% | {{round effectiveYtm 2}}% | {{round currentYield 2}}% | {{formatMoney couponPerYear}} | {{joinMonths couponMonths}} |
+{{/each}}
+
+### Сводка портфеля
+
+- **Количество облигаций:** {{selectedBonds.length}}
+- **Стоимость портфеля (1 лот каждой):** {{formatMoney totalCost}}
+- **Средняя YTM (номинальная):** {{round averageYtm 2}}%
+- **Средняя YTM (эффективная):** {{round averageEffectiveYtm 2}}%
+- **Средняя текущая доходность:** {{round averageCurrentYield 2}}%
+- **Годовой купонный доход:** {{formatMoney annualCouponIncome}}
+
+> **Примечание:** Номинальная YTM — простая годовая ставка. Эффективная YTM учитывает реинвестирование купонов (как в приложении Т-Инвестиции).
+
+### Календарь купонных выплат
+
+| Месяц | Облигация | Сумма купона |
+|-------|-----------|--------------|
+{{#each calendar}}
+| {{monthName}} | {{bond.ticker}} | {{formatMoney couponAmount}} |
+{{/each}}
+
+### Детали облигаций
+
+{{#each selectedBonds}}
+#### {{ticker}} — {{name}}
+
+- **UID:** `{{uid}}`
+- **Дата погашения:** {{formatDate maturityDate}}
+- **Срок до погашения:** {{round yearsToMaturity 1}} лет
+- **Текущая цена:** {{round price 2}}% от номинала
+- **Номинал:** {{formatMoney nominal}}
+- **Купон (разовый):** {{formatMoney couponSingle}}
+- **Купон (годовой):** {{formatMoney couponPerYear}}
+- **YTM (номинальная):** {{round ytm 2}}%
+- **YTM (эффективная):** {{round effectiveYtm 2}}%
+- **Текущая доходность:** {{round currentYield 2}}%
+- **Месяцы выплат:** {{joinMonths couponMonths}}
+
+{{/each}}
+
+{{#if speculativeBonds}}
+### Спекулятивные позиции
+
+> **Ставка на снижение ключевой ставки ЦБ.** При снижении ставки длинные дисконтные облигации вырастут в цене значительно сильнее коротких.
+
+| Тикер | Срок | Цена | YTM | Эфф. YTM | Потенциал |
+|-------|------|------|-----|----------|-----------|
+{{#each speculativeBonds}}
+| {{ticker}} | {{round yearsToMaturity 1}} лет | {{round price 2}}% | {{round ytm 2}}% | {{round effectiveYtm 2}}% | {{potentialRating}} |
+{{/each}}
+
+> **Потенциал** — относительный показатель выигрыша при снижении ставок. Чем дольше срок и глубже дисконт, тем выше потенциал.
+{{/if}}
+
+*Дата формирования: {{formatDateTime generatedAt}}*

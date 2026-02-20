@@ -21,10 +21,26 @@ import type {
 } from '@wildneo/tinvest-client';
 import Handlebars from 'handlebars';
 
-import { formatBoolean, formatQuotation } from './template-helpers.js';
+import type { OfzCouponCalendarResult } from '../services/ofz-calendar.js';
+import {
+    formatBoolean,
+    formatDate,
+    formatDateTime,
+    formatMoney,
+    formatQuotation,
+    joinMonths,
+    round,
+    truncate,
+} from './template-helpers.js';
 
 Handlebars.registerHelper('quote', formatQuotation);
 Handlebars.registerHelper('answer', formatBoolean);
+Handlebars.registerHelper('round', round);
+Handlebars.registerHelper('formatMoney', formatMoney);
+Handlebars.registerHelper('formatDate', formatDate);
+Handlebars.registerHelper('formatDateTime', formatDateTime);
+Handlebars.registerHelper('joinMonths', joinMonths);
+Handlebars.registerHelper('truncate', truncate);
 
 export async function getUserInfoFromTemplate(data: V1GetInfoResponse) {
     const template = await readFile(
@@ -199,6 +215,16 @@ export async function getFindInstrumentFromTemplate(data: V1FindInstrumentRespon
         'utf-8',
     );
     const compiledTemplate = Handlebars.compile<V1FindInstrumentResponse>(template);
+
+    return compiledTemplate(data);
+}
+
+export async function getOfzCouponCalendarFromTemplate(data: OfzCouponCalendarResult) {
+    const template = await readFile(
+        new URL('../templates/ofz-coupon-calendar.hbs', import.meta.url),
+        'utf-8',
+    );
+    const compiledTemplate = Handlebars.compile<OfzCouponCalendarResult>(template);
 
     return compiledTemplate(data);
 }

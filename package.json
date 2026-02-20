@@ -4,9 +4,11 @@
     "description": "Monorepo for T-Invest MCP server and API client",
     "scripts": {
         "inspect:tinvest": "dotenv -- pnpm inspect --server tinvest",
-        "inspect": "pnpx @modelcontextprotocol/inspector  --config ./config.json",
+        "inspect": "pnpx @modelcontextprotocol/inspector  --config ./.mcp.json",
         "generate": "pnpm -r generate",
-        "build": "pnpm -r build"
+        "build": "pnpm -r build",
+        "test": "vitest run",
+        "test:watch": "vitest"
     },
     "keywords": [
         "t-invest",
@@ -25,6 +27,7 @@
         "@types/node": "^20.19.5",
         "dotenv-cli": "^11.0.0",
         "prettier": "^3.7.4",
-        "typescript": "^5.9.3"
+        "typescript": "^5.9.3",
+        "vitest": "^3.1.0"
     }
 }
