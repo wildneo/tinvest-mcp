@@ -13,6 +13,7 @@ import {
     registerFavoritesTools,
     registerInstrumentTools,
     registerMarketDataTools,
+    registerOperationsTools,
 } from './tools/index.js';
 import { registerUserTools } from './tools/user.js';
 
@@ -37,7 +38,9 @@ const server = new McpServer(
 2. Используй UID инструмента для: get_instrument_info, get_share_info, get_bond_info, get_etf_info, get_dividends, get_forecast, get_last_prices, get_candles, get_bond_coupons, get_accrued_interests
 3. Для фундаментальных показателей: сначала получи Asset UID через get_share_info/get_bond_info/get_etf_info, затем используй get_asset_fundamentals
 4. Проверь прогнозы аналитиков (get_forecast с UID инструмента)
-5. При необходимости получи данные о дивидендах (get_dividends с UID) или купонах (get_bond_coupons с UID)`,
+5. При необходимости получи данные о дивидендах (get_dividends с UID) или купонах (get_bond_coupons с UID)
+6. Для полного обзора портфеля используй get_portfolio_snapshot (автоматически по всем счетам, с P&L, аллокацией и налогами)
+7. Для истории операций по конкретному счёту используй get_operations (с фильтрацией по инструменту и периоду)`,
     },
 );
 
@@ -66,6 +69,7 @@ async function main() {
     registerAnalyticsTools(server);
     registerCalendarTools(server);
     registerFavoritesTools(server);
+    registerOperationsTools(server);
 
     await server.connect(transport);
 

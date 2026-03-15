@@ -70,3 +70,12 @@ export function truncate(str: string, maxLength: number): string {
     if (str.length <= maxLength) return str;
     return `${str.substring(0, maxLength - 1)}\u2026`;
 }
+
+export function formatAmount(amount: number, currency: string): string {
+    if (amount === undefined || amount === null) return 'N/A';
+    return (
+        amount.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +
+        ' ' +
+        currency
+    );
+}

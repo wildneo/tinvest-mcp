@@ -1,0 +1,115 @@
+## Снапшот портфеля
+
+**Период P&L:** {{formatDateTime from}} — {{formatDateTime to}}
+**Сформировано:** {{formatDateTime generatedAt}}
+
+### Общая стоимость портфеля
+
+{{#if totalPortfolioValue}}
+{{#each totalPortfolioValue}}
+- {{formatAmount amount currency}}
+{{/each}}
+{{else}}
+Активные счета не найдены.
+{{/if}}
+
+{{#if allocation}}
+### Аллокация активов
+
+| Тип актива | Стоимость | Доля |
+|---|---|---|
+{{#each allocation}}
+| {{type}} | {{#each value}}{{formatAmount amount currency}}{{#unless @last}}, {{/unless}}{{/each}} | {{round percent 2}}% |
+{{/each}}
+{{/if}}
+
+{{#if sharePositions}}
+### Акции ({{sharePositions.length}})
+
+| Тикер | Кол-во | Ср. цена | Текущая | P&L | Доля % |
+|---|---|---|---|---|---|
+{{#each sharePositions}}
+| {{ticker}} | {{round quantity 0}} | {{averagePrice}} | {{currentPrice}} | {{expectedYield}} | {{round weight 2}}% |
+{{/each}}
+{{/if}}
+
+{{#if bondPositions}}
+### Облигации ({{bondPositions.length}})
+
+| Тикер | Кол-во | Ср. цена | Текущая | НКД | P&L | Доля % |
+|---|---|---|---|---|---|---|
+{{#each bondPositions}}
+| {{ticker}} | {{round quantity 0}} | {{averagePrice}} | {{currentPrice}} | {{#if currentNkd}}{{currentNkd}}{{else}}—{{/if}} | {{expectedYield}} | {{round weight 2}}% |
+{{/each}}
+{{/if}}
+
+{{#if etfPositions}}
+### ETF ({{etfPositions.length}})
+
+| Тикер | Кол-во | Ср. цена | Текущая | P&L | Доля % |
+|---|---|---|---|---|---|
+{{#each etfPositions}}
+| {{ticker}} | {{round quantity 0}} | {{averagePrice}} | {{currentPrice}} | {{expectedYield}} | {{round weight 2}}% |
+{{/each}}
+{{/if}}
+
+{{#if otherPositions}}
+### Прочие позиции ({{otherPositions.length}})
+
+| Тикер | Тип | Кол-во | Ср. цена | Текущая | P&L |
+|---|---|---|---|---|---|
+{{#each otherPositions}}
+| {{ticker}} | {{instrumentType}} | {{round quantity 0}} | {{averagePrice}} | {{currentPrice}} | {{expectedYield}} |
+{{/each}}
+{{/if}}
+
+{{#if accounts}}
+### Счета ({{accounts.length}})
+
+{{#each accounts}}
+- **{{accountName}}** (`{{accountId}}`): {{totalValue}}, позиций: {{positionsCount}}
+{{/each}}
+{{/if}}
+
+### Сводка P&L за период
+
+| Категория | Сумма |
+|---|---|
+{{#if realizedPnl}}
+| Реализованный P&L | {{#each realizedPnl}}{{formatAmount amount currency}}{{#unless @last}}, {{/unless}}{{/each}} |
+{{/if}}
+{{#if dividends}}
+| Дивиденды | {{#each dividends}}{{formatAmount amount currency}}{{#unless @last}}, {{/unless}}{{/each}} |
+{{/if}}
+{{#if coupons}}
+| Купоны | {{#each coupons}}{{formatAmount amount currency}}{{#unless @last}}, {{/unless}}{{/each}} |
+{{/if}}
+{{#if bondRepayments}}
+| Погашения облигаций | {{#each bondRepayments}}{{formatAmount amount currency}}{{#unless @last}}, {{/unless}}{{/each}} |
+{{/if}}
+{{#if commissions}}
+| Комиссии | {{#each commissions}}{{formatAmount amount currency}}{{#unless @last}}, {{/unless}}{{/each}} |
+{{/if}}
+{{#if taxes}}
+| Налоги | {{#each taxes}}{{formatAmount amount currency}}{{#unless @last}}, {{/unless}}{{/each}} |
+{{/if}}
+{{#if moneyIn}}
+| Ввод средств | {{#each moneyIn}}{{formatAmount amount currency}}{{#unless @last}}, {{/unless}}{{/each}} |
+{{/if}}
+{{#if moneyOut}}
+| Вывод средств | {{#each moneyOut}}{{formatAmount amount currency}}{{#unless @last}}, {{/unless}}{{/each}} |
+{{/if}}
+
+### Нереализованный P&L (текущий)
+
+{{formatAmount unrealizedPnl "RUB"}}
+
+{{#if netResult}}
+### Чистый результат за период
+
+{{#each netResult}}
+- {{formatAmount amount currency}}
+{{/each}}
+
+*Чистый результат = реализованный P&L + дивиденды + купоны + погашения - комиссии - налоги*
+{{/if}}

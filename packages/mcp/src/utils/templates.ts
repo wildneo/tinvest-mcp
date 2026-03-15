@@ -17,6 +17,7 @@ import type {
     V1GetForecastResponse,
     V1GetInfoResponse,
     V1GetLastPricesResponse,
+    V1GetOperationsByCursorResponse,
     V1InstrumentResponse,
     V1PortfolioResponse,
     V1PositionsResponse,
@@ -25,7 +26,9 @@ import type {
 import Handlebars from 'handlebars';
 
 import type { OfzCouponCalendarResult } from '../services/ofz-calendar.js';
+import type { PortfolioSnapshotResult } from '../services/portfolio-snapshot.js';
 import {
+    formatAmount,
     formatBoolean,
     formatDate,
     formatDateTime,
@@ -40,6 +43,7 @@ Handlebars.registerHelper('quote', formatQuotation);
 Handlebars.registerHelper('answer', formatBoolean);
 Handlebars.registerHelper('round', round);
 Handlebars.registerHelper('formatMoney', formatMoney);
+Handlebars.registerHelper('formatAmount', formatAmount);
 Handlebars.registerHelper('formatDate', formatDate);
 Handlebars.registerHelper('formatDateTime', formatDateTime);
 Handlebars.registerHelper('joinMonths', joinMonths);
@@ -275,6 +279,26 @@ export async function getFavoriteGroupResultFromTemplate(data: FavoriteGroupResu
         'utf-8',
     );
     const compiledTemplate = Handlebars.compile<FavoriteGroupResultData>(template);
+
+    return compiledTemplate(data);
+}
+
+export async function getOperationsFromTemplate(data: V1GetOperationsByCursorResponse) {
+    const template = await readFile(
+        new URL('../templates/operations-info.hbs', import.meta.url),
+        'utf-8',
+    );
+    const compiledTemplate = Handlebars.compile<V1GetOperationsByCursorResponse>(template);
+
+    return compiledTemplate(data);
+}
+
+export async function getPortfolioSnapshotFromTemplate(data: PortfolioSnapshotResult) {
+    const template = await readFile(
+        new URL('../templates/portfolio-snapshot.hbs', import.meta.url),
+        'utf-8',
+    );
+    const compiledTemplate = Handlebars.compile<PortfolioSnapshotResult>(template);
 
     return compiledTemplate(data);
 }

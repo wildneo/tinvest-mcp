@@ -1,0 +1,29 @@
+## История операций
+
+{{#if items}}
+### Операции ({{items.length}})
+
+{{#each items}}
+**{{name}}**
+- Дата: {{formatDateTime date}}
+- Тип: {{type}}
+- Статус: {{state}}
+{{#if ticker}}- Инструмент: {{ticker}} ({{instrumentType}}){{/if}}
+- Сумма: {{quote payment}}
+{{#if price}}- Цена: {{quote price}}{{/if}}
+{{#if commission}}- Комиссия: {{quote commission}}{{/if}}
+{{#if quantity}}- Количество: {{quantity}}{{/if}}
+{{#if yield}}- P&L: {{quote yield}}{{/if}}
+{{#if yieldRelative}}- P&L%: {{quote yieldRelative}}%{{/if}}
+{{#if accruedInt}}- НКД: {{quote accruedInt}}{{/if}}
+{{#if description}}- Описание: {{description}}{{/if}}
+
+{{/each}}
+
+{{#if hasNext}}
+---
+Есть ещё операции. Следующий курсор: `{{nextCursor}}`
+{{/if}}
+{{else}}
+Операции за указанный период не найдены.
+{{/if}}
